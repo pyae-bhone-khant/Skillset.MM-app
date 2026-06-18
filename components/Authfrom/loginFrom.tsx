@@ -19,6 +19,7 @@ import {
 import { loginSchema } from "@/lib/form-schema";
 import api from "@/lib/axios";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/authprovider";
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +35,7 @@ export function LoginForm() {
 
   const router = useRouter();
   
-
+const { setUser } = useAuth();
   async function onSubmit(values: z.infer<typeof loginSchema>) {
     setIsLoading(true);
     setLoginError(null);
@@ -45,18 +46,19 @@ export function LoginForm() {
       console.log("Token:", token);
       console.log("User:", user);
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-       
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      setUser(user);
+      
       // Role ပေါ်မူတည်၍ Redirect လုပ်ခြင်း
-    if (user.role === "STUDENT") {
-      router.push("/home/dashboard/student");
-    } else if (user.role === "ADMIN") {
-      router.push("/home/dashboard/admin");
-    } else if (user.role === "TEACHER") {
-      router.push("/home/dashboard/teacher");
-    } else {
-      setLoginError("Unknown role assigned.");
-    }
+      if (user.role === "STUDENT") {
+        router.push("/home/dashboard/student/overview");
+      } else if (user.role === "ADMIN") {
+        router.push("/home/dashboard/admin/overview");
+      } else if (user.role === "TEACHER") {
+        router.push("/home/dashboard/teacher/overview");
+      } else {
+        setLoginError("Unknown role assigned.");
+      }
 
     } catch (error : any) {
       if (error.response) {

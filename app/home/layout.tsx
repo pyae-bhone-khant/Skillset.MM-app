@@ -4,6 +4,7 @@ import { Separator } from '@/components/ui/separator';
 import SecondNav from '@/components/HomePageComponent/SecondNav';
 import Footer from '@/components/HomePageComponent/footer';
 
+
 type LayoutProps = {
   children: ReactNode;
 };
@@ -20,7 +21,9 @@ export default function Layout({ children }: LayoutProps) {
         </div>
     <div className="pt-16 flex-1">
       <div>
+
         {children}
+    \
       </div>
       <div>
         <Footer />

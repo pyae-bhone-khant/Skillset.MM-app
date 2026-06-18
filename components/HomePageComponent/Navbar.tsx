@@ -12,9 +12,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import api from "@/lib/axios"
+import { useAuth } from "@/lib/authprovider"
+import { useEffect } from "react"
 
 export default function Navbar() {
     const pathname = usePathname()
+    const { user } = useAuth()
+    const profile = (user as any)?.profile;
+
+    useEffect(() => {
+    console.log("Full User Object in Navbar:", user);
+  }, [user]);
 
     const isActive = (href: string) => pathname === href 
     const router = useRouter();
@@ -31,10 +39,25 @@ export default function Navbar() {
             localStorage.removeItem("user");
             
             // Login စာမျက်နှာသို့ ပြန်ပို့ပါ
-            router.push("/login");
+            console.log("🔴 NAVBAR LOGOUT: Redirecting to test");
+            router.push("/test-redirect");
             router.refresh(); // လိုအပ်ပါက page ကို refresh လုပ်ပါ
         }
-    };
+    }; 
+    let nav = [];
+    if (user?.role === "ADMIN") {
+        nav = [
+            "/home/dashboard/admin/overview"
+        ]
+    } else if (user?.role === "STUDENT") {
+        nav = [
+            "/home/dashboard/student/overview"
+        ]
+    } else {
+        nav = [
+             "/home/dashboard/teacher/overview"
+        ]
+    }
 
     return (
         <div className="w-full fixed top-0 left-0 right-0 z-50 h-16 flex flex-col items-center justify-between bg-linear-to-b from-app-bg to-app-bg-dark ">
@@ -45,8 +68,8 @@ export default function Navbar() {
                 </div>
                 <div className="flex items-center gap-4 text-app-text-primary">
                     <Link 
-                        href="/home/dashboard/admin" 
-                        className={`px-3 py-1 rounded-md transition-colors ${isActive("/home/dashboard/admin") ? "bg-app-accent-500 text-white" : "hover:bg-[#1e1e30]"}`}
+                        href={nav[0]} 
+                        className={`px-3 py-1 rounded-md transition-colors ${isActive(nav[0]) ? "bg-app-accent-500 text-white" : "hover:bg-[#1e1e30]"}`}
                     >
                         Dashboard
                     </Link>
@@ -60,7 +83,9 @@ export default function Navbar() {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Avatar className="cursor-pointer hover:opacity-80 transition-opacity">
-                            <AvatarFallback className="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold">U</AvatarFallback>
+                            <AvatarFallback className="bg-linear-to-r from-blue-500 to-purple-500 text-white font-bold">{ (user as any)?.profile?.fullName?.charAt(0).toUpperCase() }
+                             
+                            </AvatarFallback>
                         </Avatar>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="bg-app-card border-[#2a2a3c] text-app-text-primary min-w-[160px]">

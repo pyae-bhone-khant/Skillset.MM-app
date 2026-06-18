@@ -2,7 +2,7 @@ import { BookOpen, Users, ShieldAlert, GraduationCap, Award, Globe } from 'lucid
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen text-slate-200 font-sans selection:bg-blue-500/30" style={{ backgroundColor: '#010114' }}>
+    <div className="min-h-screen text-slate-200 font-sans selection:bg-blue-500/30" >
       
       {/* 1. HERO SECTION */}
       <section className="relative max-w-6xl mx-auto px-6 pt-24 pb-16 text-center overflow-hidden">

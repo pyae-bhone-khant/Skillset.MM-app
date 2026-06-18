@@ -53,13 +53,13 @@ export default function Footer() {
           {/* Company Links */}
           <div className="flex flex-col gap-3">
             <h3 className="font-semibold text-white">Company</h3>
-            <Link href="/about" className="text-app-text-secondary text-sm hover:text-app-text-primary transition-colors">
+            <Link href="/home/about" className="text-app-text-secondary text-sm hover:text-app-text-primary transition-colors">
               About Us
             </Link>
-            <Link href="/contact" className="text-app-text-secondary text-sm hover:text-app-text-primary transition-colors">
+            <Link href="/home/contact" className="text-app-text-secondary text-sm hover:text-app-text-primary transition-colors">
               Contact
             </Link>
-            <Link href="/faq" className="text-app-text-secondary text-sm hover:text-app-text-primary transition-colors">
+            <Link href="/home/faq" className="text-app-text-secondary text-sm hover:text-app-text-primary transition-colors">
               FAQ
             </Link>
           </div>
@@ -71,10 +71,10 @@ export default function Footer() {
             © 2026 SkillHub MM. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
-            <Link href="/terms" className="text-app-text-secondary hover:text-app-text-primary transition-colors">
+            <Link href="/home/terms" className="text-app-text-secondary hover:text-app-text-primary transition-colors">
               Terms & Conditions
             </Link>
-            <Link href="/privacy" className="text-app-text-secondary hover:text-app-text-primary transition-colors">
+            <Link href="/home/privacy" className="text-app-text-secondary hover:text-app-text-primary transition-colors">
               Privacy Policy
             </Link>
           </div>

@@ -6,12 +6,20 @@ import { Separator } from "../ui/separator";
 import { LayoutDashboard, ClipboardList, BookOpen, ShoppingBag, User, Info, Mail, HelpCircle } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useAuth } from "../../lib/authprovider"
 
 export default function SecondNav() {
     const pathname = usePathname()
+    const { user } = useAuth()
 
-    const mainButtons = [
-        { name: "Dashboard", href: "/home/dashboard/admin", icon: LayoutDashboard },
+    const mainButtons = [ 
+        user?.role === "ADMIN" ? 
+            { name: "Dashboard", href: "/home/dashboard/admin/overview", icon: LayoutDashboard } : 
+            user?.role === "STUDENT" ? 
+            { name: "Dashboard", href: "/home/dashboard/student/overview", icon: LayoutDashboard } :  
+            user?.role === "TEACHER" ? 
+            { name: "Dashboard", href: "/home/dashboard/teacher/overview", icon: LayoutDashboard } : 
+            { name: "Dashboard", href: "/", icon: LayoutDashboard },
         { name: "Level Test", href: "/home/level-test", icon: ClipboardList },
         { name: "Course", href: "/home/course", icon: BookOpen },
         { name: "Library Shop", href: "/home/library-shop", icon: ShoppingBag },
