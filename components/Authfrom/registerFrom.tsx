@@ -17,6 +17,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { registerSchema } from "@/lib/form-schema";
+import api from "@/lib/axios";
+
 
 export function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,8 +38,8 @@ export function RegisterForm() {
     setIsLoading(true);
     setRegisterError(null);
     try {
-      console.log("Register attempt with:", values);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await api.post("/auth/register", values);
+      console.log(response);
     } catch (error) {
       setRegisterError("An error occurred. Please try again.");
       console.error("Registration failed:", error);

@@ -17,6 +17,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { loginSchema } from "@/lib/form-schema";
+import api from "@/lib/axios";
+import { useRouter } from "next/navigation";
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,17 +32,43 @@ export function LoginForm() {
     },
   });
 
+  const router = useRouter();
+  
+
   async function onSubmit(values: z.infer<typeof loginSchema>) {
     setIsLoading(true);
     setLoginError(null);
     try {
-      console.log("Login attempt with:", values);
-      // Simulate API delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      // Handle successful login here
-    } catch (error) {
-      setLoginError("An error occurred. Please try again.");
-      console.error("Login failed:", error);
+      const response = await api.post("/auth/login", values);     
+      console.log("Login successful:", response.data);
+      const {token, user} = response.data;
+      console.log("Token:", token);
+      console.log("User:", user);
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+       
+      // Role ပေါ်မူတည်၍ Redirect လုပ်ခြင်း
+    if (user.role === "STUDENT") {
+      router.push("/home/dashboard/student");
+    } else if (user.role === "ADMIN") {
+      router.push("/home/dashboard/admin");
+    } else if (user.role === "TEACHER") {
+      router.push("/home/dashboard/teacher");
+    } else {
+      setLoginError("Unknown role assigned.");
+    }
+
+    } catch (error : any) {
+      if (error.response) {
+      // Server က အဖြေပြန်ပေးတယ် (ဥပမာ- 400, 401, 500)
+      console.error("Response Error:", error.response.data);
+    } else if (error.request) {
+      // Request ပို့တယ်၊ ဒါပေမဲ့ ဘာမှ ပြန်မလာဘူး (ဒီနေရာက Network Error အစစ်ပါ)
+      console.error("Request Error (Network):", error.request);
+    } else {
+      console.error("Setup Error:", error.message);
+    }
+    setLoginError("Login failed. Check console for details.");
     } finally {
       setIsLoading(false);
     }
@@ -74,7 +102,7 @@ export function LoginForm() {
                   <FormItem className="space-y-2">
                     <FormLabel className="text-sm font-medium text-gray-300">
                       Email Address
-                    </FormLabel>
+                    </FormLabel>    
                     <FormControl>
                       <Input
                         type="email"

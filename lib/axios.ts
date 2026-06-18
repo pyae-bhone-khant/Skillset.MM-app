@@ -1,0 +1,21 @@
+// lib/api.ts
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "/api/v1", // Uses Next.js rewrite to proxy to http://localhost:6000/api/v1
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  
+}); 
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export default api;
