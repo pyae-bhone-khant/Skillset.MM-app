@@ -39,8 +39,7 @@ export default function Navbar() {
             localStorage.removeItem("user");
             
             // Login စာမျက်နှာသို့ ပြန်ပို့ပါ
-            console.log("🔴 NAVBAR LOGOUT: Redirecting to test");
-            router.push("/test-redirect");
+            router.push("/login");
             router.refresh(); // လိုအပ်ပါက page ကို refresh လုပ်ပါ
         }
     }; 

@@ -16,20 +16,17 @@ export default function Layout({ children }: LayoutProps) {
       const userStr = localStorage.getItem("user");
       
       if (!token || !userStr) {
-        console.log("🔴 TEACHER LAYOUT: Redirecting to test (missing token/user)");
-        router.push("/test-redirect");
+        router.push("/login");
         return;
       }
       
       try {
         const user = JSON.parse(userStr);
         if (user.role !== "TEACHER") {
-          console.log("🔴 TEACHER LAYOUT: Redirecting to test (wrong role)");
-          router.push("/test-redirect");
+          router.push("/login");
         }
       } catch (error) {
-        console.log("🔴 TEACHER LAYOUT: Redirecting to test (parse error)");
-        router.push("/test-redirect");
+        router.push("/login");
       }
     }, [router]);
   return (

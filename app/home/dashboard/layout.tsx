@@ -15,21 +15,17 @@ export default function Layout({ children }: LayoutProps) {
         const userStr = localStorage.getItem("user");
         
         if (!token || !userStr) {
-            console.log("🔴 PARENT DASHBOARD LAYOUT: Redirecting to test (missing token/user)");
-            router.push("/test-redirect");
+            router.push("/login");
             return;
         }
         
         try {
             const user = JSON.parse(userStr);
             if (!user) {
-                console.log("🔴 PARENT DASHBOARD LAYOUT: Redirecting to test (no user)");
-                router.push("/test-redirect");
+                router.push("/login");
             }
         } catch (error) {
-            console.error("🔴 PARENT DASHBOARD LAYOUT: Error parsing user:", error);
-            console.log("🔴 PARENT DASHBOARD LAYOUT: Redirecting to test (parse error)");
-            router.push("/test-redirect");
+            router.push("/login");
         }
     }, [router]);
     

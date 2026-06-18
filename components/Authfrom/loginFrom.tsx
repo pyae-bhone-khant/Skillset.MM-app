@@ -20,6 +20,7 @@ import { loginSchema } from "@/lib/form-schema";
 import api from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/authprovider";
+import { toast } from "sonner";
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -41,10 +42,8 @@ const { setUser } = useAuth();
     setLoginError(null);
     try {
       const response = await api.post("/auth/login", values);     
-      console.log("Login successful:", response.data);
+      toast.success("Login successful!");
       const {token, user} = response.data;
-      console.log("Token:", token);
-      console.log("User:", user);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
       setUser(user);
@@ -64,13 +63,17 @@ const { setUser } = useAuth();
       if (error.response) {
       // Server က အဖြေပြန်ပေးတယ် (ဥပမာ- 400, 401, 500)
       console.error("Response Error:", error.response.data);
+      toast.error("Login failed." , error.response.data);
     } else if (error.request) {
       // Request ပို့တယ်၊ ဒါပေမဲ့ ဘာမှ ပြန်မလာဘူး (ဒီနေရာက Network Error အစစ်ပါ)
       console.error("Request Error (Network):", error.request);
+
+      toast.error(`Login failed` , error.request);
     } else {
       console.error("Setup Error:", error.message);
+      toast.error(`Login failed. ${error.message}`);
     }
-    setLoginError("Login failed. Check console for details.");
+    setLoginError("Login failed.");
     } finally {
       setIsLoading(false);
     }

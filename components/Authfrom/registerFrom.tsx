@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/form";
 import { registerSchema } from "@/lib/form-schema";
 import api from "@/lib/axios";
+import { toast } from "sonner";
 
 
 export function RegisterForm() {
@@ -39,9 +40,10 @@ export function RegisterForm() {
     setRegisterError(null);
     try {
       const response = await api.post("/auth/register", values);
-      console.log(response);
+      toast.success("Registration successful!");
     } catch (error) {
       setRegisterError("An error occurred. Please try again.");
+      toast.error("Registration failed!");
       console.error("Registration failed:", error);
     } finally {
       setIsLoading(false);

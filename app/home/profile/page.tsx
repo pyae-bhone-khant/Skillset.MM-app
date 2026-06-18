@@ -14,19 +14,19 @@ export default function ProfilePage() {
 
   const [avatarPreview, setAvatarPreview] = useState(null);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e : any) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e : any) => {
     const file = e.target.files[0];
-    if (file) {
+    if (file  ) {
       setAvatarPreview(URL.createObjectURL(file));
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e : any) => {
     e.preventDefault();
     console.log("Saving changes...", formData);
     // Backend API handles database update here
