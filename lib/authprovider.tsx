@@ -12,7 +12,9 @@ import {
 
 interface UserProfile {
   fullName: string;
-  // လိုအပ်ရင် bio, avatarUrl စတာတွေ ထပ်ထည့်ပါ
+  bio?: string;
+  avatarUrl?: string;
+  category?: string;
 }
 
 interface User {
