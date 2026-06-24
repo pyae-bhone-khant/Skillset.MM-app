@@ -10,7 +10,7 @@ export default function ForgotPasswordPage() {
             <input
               type="email"
               className="w-full bg-white/5 border border-white/10 text-white rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-              placeholder="name@example.com"
+              placeholder="user@example.com"
             />
           </div>
           <button
