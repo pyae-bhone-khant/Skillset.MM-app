@@ -20,6 +20,7 @@ export default function SecondNav() {
             user?.role === "TEACHER" ? 
             { name: "Dashboard", href: "/home/dashboard/teacher/overview", icon: LayoutDashboard } : 
             { name: "Dashboard", href: "/", icon: LayoutDashboard },
+            {name : "Blog" , href : "/home/blogs", icon : LayoutDashboard},
         { name: "Level Test", href: "/home/level-test", icon: ClipboardList },
         { name: "Course", href: "/home/course", icon: BookOpen },
         { name: "Library Shop", href: "/home/library-shop", icon: ShoppingBag },
