@@ -93,17 +93,17 @@ function BlogsPageContent() {
     <div className="min-h-screen text-slate-100">
       <main className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-8 sm:px-6 lg:px-8">
         <header className="space-y-3">
-          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-400">
+          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-slate-400">
             Insights & stories
           </p>
-          <h1 className="text-3xl font-semibold sm:text-4xl">Our Blog</h1>
-          <p className="max-w-2xl text-sm text-slate-300 sm:text-base">
+          <h1 className="text-3xl font-semibold text-white sm:text-4xl">Our Blog</h1>
+          <p className="max-w-2xl text-sm text-slate-400 sm:text-base">
             Browse fresh articles, explore topics, and discover ideas curated for
             our community.
           </p>
         </header>
 
-        <section className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 shadow-lg shadow-black/20">
+        <section className="rounded-2xl border border-slate-800/60 p-4">
           <div className="mb-4">
             <label htmlFor="blog-search" className="mb-2 block text-sm text-slate-300">
               Search blogs
@@ -124,8 +124,8 @@ function BlogsPageContent() {
               onClick={() => setSelectedCategory("All")}
               className={`rounded-full px-4 py-2 text-sm transition ${
                 selectedCategory === "All"
-                  ? "bg-cyan-500 text-slate-950"
-                  : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+                  ? "bg-white text-slate-950"
+                  : "bg-slate-900/70 text-slate-300 hover:bg-slate-800"
               }`}
             >
               All
@@ -137,8 +137,8 @@ function BlogsPageContent() {
                 onClick={() => setSelectedCategory(category.name)}
                 className={`rounded-full px-4 py-2 text-sm transition ${
                   selectedCategory === category.name
-                    ? "bg-cyan-500 text-slate-950"
-                    : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+                    ? "bg-white text-slate-950"
+                    : "bg-slate-900/70 text-slate-300 hover:bg-slate-800"
                 }`}
               >
                 {category.name}
@@ -148,7 +148,7 @@ function BlogsPageContent() {
         </section>
 
         {isLoading && (
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-8 text-center text-slate-400">
+          <div className="rounded-2xl border border-slate-800/60 p-8 text-center text-slate-400">
             Loading articles...
           </div>
         )}
@@ -160,7 +160,7 @@ function BlogsPageContent() {
         )}
 
         {!isLoading && !isError && visibleBlogs.length === 0 && (
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-8 text-center text-slate-400">
+          <div className="rounded-2xl border border-slate-800/60 p-8 text-center text-slate-400">
             No articles found for this search or category yet.
           </div>
         )}
