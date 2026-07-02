@@ -136,11 +136,11 @@ export default function ProfilePage() {
             <div className="space-y-2">
               <label className="flex items-center gap-2 text-xs font-medium text-slate-400"><BookOpen size={14} /> Specialized Category</label>
               <select name="category" value={formData.category} onChange={handleInputChange} className="w-full bg-[#05051a]/60 border border-slate-800/80 rounded-xl px-4 py-3 text-sm text-slate-200 appearance-none focus:outline-none focus:border-blue-500/50 transition-all">
-                <option value="" className="bg-[#010114]">Select Category</option>
-                <option value="IT" className="bg-[#010114]">Information Technology (IT)</option>
-                <option value="Language" className="bg-[#010114]">Languages</option>
-                <option value="Cooking" className="bg-[#010114]">Cooking & Culinary</option>
-                <option value="Art" className="bg-[#010114]">Art & Creative</option>
+                <option value="" className="bg-app-bg">Select Category</option>
+                <option value="IT" className="bg-app-bg">Information Technology (IT)</option>
+                <option value="Language" className="bg-app-bg">Languages</option>
+                <option value="Cooking" className="bg-app-bg">Cooking & Culinary</option>
+                <option value="Art" className="bg-app-bg">Art & Creative</option>
               </select>
             </div>
 
