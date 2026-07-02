@@ -50,7 +50,7 @@ export function CourseDetails({ course }: { course: Course }) {
       const response = await api.get<ChaptersResponse>(
         `/chapter/${course.id}`,
         {
-          params: { page: 1, limit: 6 },
+          params: { page: 1, limit: 100 },
         }
       );
 
@@ -69,6 +69,8 @@ export function CourseDetails({ course }: { course: Course }) {
     null
   );
 
+
+
   const selectedChapter = useMemo(() => {
     if (!sortedChapters.length) return null;
 
@@ -83,16 +85,31 @@ export function CourseDetails({ course }: { course: Course }) {
     selectedChapter?.videoUrl?.startsWith("http");
 
   return (
-    <div className="space-y-6 rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
+    <>
+      <style>{`
+        @keyframes scroll-title {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+      <div className="space-y-6 rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
       {/* Header */}
       <div className="space-y-2">
         <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
           Easy learning with video
         </p>
 
-        <h2 className="text-3xl font-bold text-white">
-          {course.title}
-        </h2>
+        <div className="overflow-hidden">
+          <h2
+            className="text-3xl font-bold text-white whitespace-nowrap inline-block"
+            style={{
+              animation: "scroll-title 10s linear infinite",
+            }}
+          >
+            {course.title}
+            <span className="mx-16">{course.title}</span>
+          </h2>
+        </div>
 
         <p className="text-slate-400">
           {course.description}
@@ -196,5 +213,6 @@ export function CourseDetails({ course }: { course: Course }) {
         </div>
       )}
     </div>
+    </>
   );
 }
