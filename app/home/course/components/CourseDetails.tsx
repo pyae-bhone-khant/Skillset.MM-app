@@ -86,12 +86,12 @@ export function CourseDetails({ course }: { course: Course }) {
 
   return (
     <>
-      <style>{`
+      {/* <style>{`
         @keyframes scroll-title {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-      `}</style>
+      `}</style> */}
       <div className="space-y-6 rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
       {/* Header */}
       <div className="space-y-2">
@@ -102,12 +102,12 @@ export function CourseDetails({ course }: { course: Course }) {
         <div className="overflow-hidden">
           <h2
             className="text-3xl font-bold text-white whitespace-nowrap inline-block"
-            style={{
-              animation: "scroll-title 10s linear infinite",
-            }}
+            // style={{
+            //   animation: "scroll-title 10s linear infinite",
+            // }}
           >
             {course.title}
-            <span className="mx-16">{course.title}</span>
+            {/* <span className="mx-16">{course.title}</span> */}
           </h2>
         </div>
 
