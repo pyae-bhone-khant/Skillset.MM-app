@@ -46,7 +46,7 @@ const { setUser } = useAuth();
       const {token, user} = response.data;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
-      // setUser(user);
+      setUser(user);
       
       // Role ပေါ်မူတည်၍ Redirect လုပ်ခြင်း
       if (user.role === "STUDENT") {

@@ -1,7 +1,9 @@
+import StillDeveloping from "@/components/HomePageComponent/StillDeveloping";
+
 export default function AchievementsPage() {
     return (
-        <div>
-            <h1 className="text-2xl font-bold text-white">Student Achievements Page</h1>
+        <div className="mt-10 px-10">
+            <StillDeveloping />
         </div>
     )
 }
