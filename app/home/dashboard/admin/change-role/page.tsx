@@ -31,20 +31,11 @@ function ChangeRoleContent() {
   const hasPrev = data?.previousPage !== null && data?.previousPage !== undefined;
 
   const handleChangeRole = (id: string, role: UserRole) => {
-    changeRole.mutate(
-      { id, role },
-      {
-        onSuccess: (res) => toast.success(res.message),
-        onError: () => toast.error("Failed to change role"),
-      }
-    );
+    changeRole.mutate({ id, role });
   };
 
   const handleDelete = (id: string) => {
-    deleteUser.mutate(id, {
-      onSuccess: (res) => toast.success(res.message),
-      onError: () => toast.error("Failed to delete user"),
-    });
+    deleteUser.mutate(id);
   };
 
   return (

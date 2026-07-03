@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/lib/axios";
+import { toast } from "sonner";
 import type {
   GetAllUsersResponse,
   ChangeRoleResponse,
@@ -37,8 +38,12 @@ export function useChangeRole() {
       );
       return data;
     },
-    onSuccess: () => {
+    onSuccess: (res) => {
       qc.invalidateQueries({ queryKey: [USERS_KEY] });
+      toast.success(res.message);
+    },
+    onError: () => {
+      toast.error("Failed to change role");
     },
   });
 }
@@ -54,8 +59,12 @@ export function useDeleteUser() {
       );
       return data;
     },
-    onSuccess: () => {
+    onSuccess: (res) => {
       qc.invalidateQueries({ queryKey: [USERS_KEY] });
+      toast.success(res.message);
+    },
+    onError: () => {
+      toast.error("Failed to delete user");
     },
   });
 }
