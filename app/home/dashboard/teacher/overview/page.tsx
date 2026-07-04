@@ -186,11 +186,11 @@ export default function OverviewPage() {
     async function fetchStats() {
       try {
         const [coursesRes, blogsRes] = await Promise.all([
-          api.get("/courses/my-course").catch(() => null),
+          api.get("/course", { params: { page: 1, limit: 100 } }).catch(() => null),
           api.get("/blogs/my-blog").catch(() => null),
         ]);
 
-        const courses = coursesRes?.data?.data || coursesRes?.data || [];
+        const courses = coursesRes?.data?.course || coursesRes?.data?.data || [];
         const blogs = blogsRes?.data?.data || blogsRes?.data || [];
 
         const courseList = Array.isArray(courses) ? courses : [];

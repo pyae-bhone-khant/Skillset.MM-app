@@ -8,22 +8,22 @@ import { ChapterList } from "@/components/course/ChapterList";
 import type { Course } from "@/app/home/course/types";
 import api from "@/lib/axios";
 
-export default function CoursePage() {
+export default function OwnCoursePage() {
   return (
     <QueryClientProvider client={queryClient}>
-      <CoursePageContent />
+      <OwnCoursePageContent />
     </QueryClientProvider>
   );
 }
 
-function CoursePageContent() {
+function OwnCoursePageContent() {
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
 
   const { data: courses = [], isLoading } = useQuery({
-    queryKey: ["courses"],
+    queryKey: ["courses", "owner"],
     queryFn: async () => {
-      const response = await api.get("/course", {
+      const response = await api.get("/course/owner/", {
         params: { page: 1, limit: 100 },
       });
       return response.data.course || [];
@@ -48,7 +48,7 @@ function CoursePageContent() {
   return (
     <div className="max-w-6xl mx-auto p-6">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-bold text-white">Course Management</h1>
+        <h1 className="text-2xl font-bold text-white">My Courses</h1>
         {!showCreateForm && !selectedCourse && (
           <button
             onClick={handleCreateNew}

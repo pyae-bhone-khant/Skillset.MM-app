@@ -96,18 +96,24 @@ export default function OverviewPage() {
     async function fetchAdminStats() {
       try {
         const [usersRes, coursesRes] = await Promise.all([
-          api.get("/admin/users/stats").catch(() => null),
-          api.get("/admin/courses/stats").catch(() => null),
+          api.get("/admin/getAlluser", { params: { page: 1, limit: 100 } }).catch(() => null),
+          api.get("/course", { params: { page: 1, limit: 100 } }).catch(() => null),
         ]);
 
-        const userData = usersRes?.data?.data || { total: 0, students: 0, teachers: 0 };
-        const courseData = coursesRes?.data?.data || { total: 0 };
+        const users = usersRes?.data?.user || [];
+        const courses = coursesRes?.data?.course || coursesRes?.data?.data || [];
+        const userList = Array.isArray(users) ? users : [];
+        const courseList = Array.isArray(courses) ? courses : [];
+
+        const totalUsers = userList.length;
+        const totalStudents = userList.filter((u: { role: string }) => u.role === "STUDENT").length;
+        const totalTeachers = userList.filter((u: { role: string }) => u.role === "TEACHER").length;
 
         setStats({
-          totalUsers: userData.total || 0,
-          totalStudents: userData.students || 0,
-          totalTeachers: userData.teachers || 0,
-          totalCourses: courseData.total || 0,
+          totalUsers,
+          totalStudents,
+          totalTeachers,
+          totalCourses: courseList.length,
         });
       } catch (err) {
         console.error("Failed to fetch admin stats:", err);
