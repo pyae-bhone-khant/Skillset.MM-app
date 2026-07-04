@@ -23,7 +23,7 @@ function CoursePageContent() {
   const { data: courses = [], isLoading } = useQuery({
     queryKey: ["courses"],
     queryFn: async () => {
-      const response = await api.get("/course", {
+      const response = await api.get("/course/owner", {
         params: { page: 1, limit: 100 },
       });
       return response.data.course || [];
