@@ -33,10 +33,9 @@ export default function AdminNavbar() {
       return [
         { name: "Overview", href: "/admin/overview", icon: LayoutDashboard },
         { name: "My Course", href: "/admin/course", icon: BookOpen },
-        { name: "Other Blog", href: "/admin/blog", icon: FileText },
+        { name: "Category", href: "/admin/category", icon: FileText },
         { name: "Change Role", href: "/admin/change-role", icon: Users },
         { name: "My Blog", href: "/admin/own-blog", icon: PenTool },
-        { name: "Other Course", href: "/admin/other-course", icon: GraduationCap },
       ];
     } else if (user?.role === "TEACHER") {
       return [

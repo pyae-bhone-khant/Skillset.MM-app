@@ -1,7 +1,0 @@
-export default function OtherCoursePage() {
-    return (
-        <div>
-            <h1 className="text-2xl font-bold text-white">Other Course Page</h1>
-        </div>
-    )
-}
