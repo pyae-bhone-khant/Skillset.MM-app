@@ -64,8 +64,8 @@ export default function BlogDetailPage() {
             <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-slate-800/60 pb-6">
               <div className="flex items-center gap-3">
                 <Avatar className="h-12 w-12 border border-slate-700/60">
-                  {blog.avatarUrl ? (
-                    <AvatarImage src={blog.avatarUrl} alt={blog.fullName} />
+                  {blog.avatar ? (
+                    <AvatarImage src={blog.avatar} alt={blog.fullName} />
                   ) : null}
                   <AvatarFallback>{getInitials(blog.fullName)}</AvatarFallback>
                 </Avatar>
