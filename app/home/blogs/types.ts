@@ -1,10 +1,10 @@
 export type Blog = {
-  id: number;
+  id: string;
   title: string;
   content: string;
   category: string;
   fullName: string;
-  avatarUrl?: string;
+  avatar: string | null;
   updatedAt: string;
 };
 
