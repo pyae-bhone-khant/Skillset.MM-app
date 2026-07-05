@@ -5,6 +5,7 @@ import {
   QueryClient,
   QueryClientProvider,
   useInfiniteQuery,
+  useQuery,
 } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import { BlogCard } from "./components/BlogCard";
@@ -42,6 +43,11 @@ async function fetchBlogsPage({
   return response.data;
 }
 
+async function fetchCategories(): Promise<Category[]> {
+  const response = await api.get("/admin/categories");
+  return response.data.categories || [];
+}
+
 function BlogsPageContent() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
@@ -57,19 +63,12 @@ function BlogsPageContent() {
         : undefined,
   });
 
-  const categoryOptions = (() => {
-    const options = new Map<string, Category>();
+  const categoriesQuery = useQuery({
+    queryKey: ["categories"],
+    queryFn: fetchCategories,
+  });
 
-    blogsQuery.data?.pages.forEach((page) => {
-      page.blogs.forEach((blog) => {
-        if (!options.has(blog.category)) {
-          options.set(blog.category, { id: blog.id, name: blog.category });
-        }
-      });
-    });
-
-    return Array.from(options.values());
-  })();
+  const categoryOptions = categoriesQuery.data || [];
 
   const visibleBlogs =
     blogsQuery.data?.pages.flatMap((page) => page.blogs).filter((blog) => {

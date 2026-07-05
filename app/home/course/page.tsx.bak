@@ -25,32 +25,23 @@ function CoursePageContent() {
   const [page, setPage] = useState(1);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["courses", page, selectedCategory],
+    queryKey: ["courses", page],
     queryFn: async () => {
-      const params: Record<string, number | string> = { page, limit: PAGE_SIZE };
-      if (selectedCategory !== "All") {
-        params.category = selectedCategory;
-      }
-      const response = await api.get<CoursesResponse>(COURSES_URL, { params });
+      const response = await api.get<CoursesResponse>(COURSES_URL, {
+        params: { page, limit: PAGE_SIZE },
+      });
+
       return response.data;
     },
     placeholderData: (previousData) => previousData,
-  });
-
-  const { data: categoriesData } = useQuery({
-    queryKey: ["categories"],
-    queryFn: async () => {
-      const response = await api.get("/admin/categories");
-      return response.data.categories || [];
-    },
   });
 
   const courses = useMemo(() => data?.course ?? [], [data?.course]);
   const nextPage = data?.nextPage ?? null;
 
   const categories = useMemo(
-    () => categoriesData?.map((cat: Category) => cat.name) || [],
-    [categoriesData]
+    () => Array.from(new Set(courses.map((course) => course.category).filter(Boolean))),
+    [courses]
   );
 
   const filteredCourses = useMemo(() => {
@@ -104,10 +95,7 @@ function CoursePageContent() {
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
-              onClick={() => {
-                setSelectedCategory("All");
-                setPage(1);
-              }}
+              onClick={() => setSelectedCategory("All")}
               className={`rounded-full px-4 py-2 text-sm transition ${
                 selectedCategory === "All"
                   ? "bg-white text-slate-950"
@@ -116,14 +104,11 @@ function CoursePageContent() {
             >
               All
             </button>
-            {categories.map((category: string) => (
+            {categories.map((category) => (
               <button
                 key={category}
                 type="button"
-                onClick={() => {
-                  setSelectedCategory(category);
-                  setPage(1);
-                }}
+                onClick={() => setSelectedCategory(category)}
                 className={`rounded-full px-4 py-2 text-sm transition ${
                   selectedCategory === category
                     ? "bg-white text-slate-950"
